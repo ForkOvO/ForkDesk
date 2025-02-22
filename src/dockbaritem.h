@@ -9,11 +9,17 @@ class DockBarItem : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit DockBarItem(QWidget *parent = nullptr);
+    explicit DockBarItem(QWidget *parent = nullptr, QString name = "ten_OvO", bool isSystem = true);
     ~DockBarItem();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+
+private:
+    void systemConnect(); // 系统应用槽函数
+
+private:
+    QString m_name;
 };
 
 #endif // DOCKBARITEM_H

@@ -1,11 +1,15 @@
 #include "dockbaritem.h"
 
 #include <QPainter>
+#include <QPainterPath>
+#include <QProcess>
 
-DockBarItem::DockBarItem(QWidget *parent)
+DockBarItem::DockBarItem(QWidget *parent, QString name, bool isSystem)
     : QPushButton(parent)
+    , m_name(name)
 {
     setMouseTracking(true); // 启用鼠标跟踪
+    if (isSystem) systemConnect(); // 系统应用
 }
 
 DockBarItem::~DockBarItem()
@@ -16,6 +20,22 @@ void DockBarItem::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing); // 抗锯齿
-    QPixmap pixmap(":/res/ten_OvO_white.png");
+    // 圆角
+    QPainterPath path;
+    path.addRoundedRect(rect(), width() / 10, width() / 10);
+    painter.setClipPath(path);
+    // 绘制图标
+    QPixmap pixmap(":/res/" + m_name + ".png");
     painter.drawPixmap(rect(), pixmap);
+}
+
+void DockBarItem::systemConnect()
+{
+    if (m_name == "ten_OvO") // 打开此电脑
+    {
+        connect(this, &DockBarItem::clicked, this, [&]{
+            QProcess process;
+            process.startDetached("explorer");            
+        });
+    }
 }
