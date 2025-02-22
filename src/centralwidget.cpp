@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "publiccache.h"
 #include "themebutton.h"
+#include "dockbar.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -26,6 +27,9 @@ CentralWidget::CentralWidget(QWidget *parent)
     m_foldSwitchBtn->move(0, 0);
     connect(m_foldSwitchBtn, &QPushButton::clicked, m_parent, &MainWindow::changeFoldStatus); // 折叠切换
 
+    // 底部栏
+    m_dockBar = new DockBar(this);
+
     // 主题切换按钮
     m_themeSwitchBtn = new ThemeButton(this, "theme");
     connect(m_themeSwitchBtn, &QPushButton::clicked, this, [&](){
@@ -33,24 +37,22 @@ CentralWidget::CentralWidget(QWidget *parent)
         if (cache->get("theme").toString() == "dark") cache->set("theme", "white");
         else cache->set("theme", "dark");
     }); // 主题切换
-
     // github按钮
     m_githubBtn = new ThemeButton(this, "github", 25);
     connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://github.com/ForkOvO/ForkDesktop")); }); // 打开github仓库
     // bilibili按钮
     m_bilibiliBtn = new ThemeButton(this, "bilibili", 25);
     connect(m_bilibiliBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://space.bilibili.com/387426555")); }); // 打开bilibili
-
     // 布局
-    // 底部布局
-    QHBoxLayout *bottomLayout = new QHBoxLayout();
-    bottomLayout->addStretch();
-    bottomLayout->addWidget(m_githubBtn);
-    bottomLayout->addWidget(m_bilibiliBtn);
-    bottomLayout->addWidget(m_themeSwitchBtn);
+    QHBoxLayout* btnLayout = new QHBoxLayout();
+    btnLayout->addStretch();
+    btnLayout->addWidget(m_githubBtn);
+    btnLayout->addWidget(m_bilibiliBtn);
+    btnLayout->addWidget(m_themeSwitchBtn);
+    
     // 主布局
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addLayout(bottomLayout);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->addLayout(btnLayout);
     mainLayout->addStretch();
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
 }
