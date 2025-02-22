@@ -16,6 +16,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     : QWidget(parent)
 {
     m_parent = static_cast<MainWindow*>(parent); // 折叠窗口
+    setFixedSize(m_parent->size()); // 固定大小
 
     setAttribute(Qt::WA_TranslucentBackground); // 透明背景
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 屏幕大小

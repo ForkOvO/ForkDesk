@@ -26,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 中心控件
     m_centralWidget = new CentralWidget(this);
-    m_centralWidget->setFixedSize(size());
     m_centralWidget->move(0, 0);
 
     // 添加窗口到缓存
