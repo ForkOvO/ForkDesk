@@ -39,7 +39,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     }); // 主题切换
     // github按钮
     m_githubBtn = new ThemeButton(this, "github", 25);
-    connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://github.com/ForkOvO/ForkDesktop")); }); // 打开github仓库
+    connect(m_githubBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://github.com/ForkOvO/ForkDesk")); }); // 打开github仓库
     // bilibili按钮
     m_bilibiliBtn = new ThemeButton(this, "bilibili", 25);
     connect(m_bilibiliBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://space.bilibili.com/387426555")); }); // 打开bilibili
