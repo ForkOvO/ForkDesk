@@ -1,15 +1,40 @@
 #include "dockbar.h"
 
 #include <QPainter>
+#include <QPropertyAnimation>
 
 DockBar::DockBar(QWidget *parent)
     : QWidget(parent)
 {
-    setGeometry(100, parent->height() - 200, parent->width() - 200, 100);
+    m_foldRect = QRect(200, parent->height() - 200, parent->width() - 400, 100);
+    m_fullRect = QRect(100, parent->height() - 200, parent->width() - 200, 100);
+    setGeometry(m_foldRect);
+
+    // 折叠动画
+    m_foldAnimation = new QPropertyAnimation(this, "geometry");
+    m_foldAnimation->setDuration(300);
 }
 
 DockBar::~DockBar()
 {
+}
+
+void DockBar::enterEvent(QEnterEvent *event)
+{
+    // 展开
+    STD_DEBUG(DockBar.cpp) << "enterEvent";
+    m_foldAnimation->setStartValue(geometry());
+    m_foldAnimation->setEndValue(m_fullRect);
+    m_foldAnimation->start();
+}
+
+void DockBar::leaveEvent(QEvent *event)
+{
+    // 折叠
+    STD_DEBUG(DockBar.cpp) << "leaveEvent";
+    m_foldAnimation->setStartValue(geometry());
+    m_foldAnimation->setEndValue(m_foldRect);
+    m_foldAnimation->start();
 }
 
 void DockBar::paintEvent(QPaintEvent *event)
