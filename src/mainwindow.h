@@ -1,7 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+// 折叠窗口
+
 #include <QMainWindow>
+
+class QPropertyAnimation;
+class CentralWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -9,6 +14,30 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void changeFoldStatus(); // 切换折叠状态
+
+protected:
+    // 右键移动折叠浮窗
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    // 渐变背景
+    void paintEvent(QPaintEvent *event) override;
+
+private:
+    CentralWidget* m_centralWidget = nullptr; // 中心控件
+    QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画
+
+    bool m_isFold = false; // 是否折叠
+    QRect m_fullRect; // 展开窗口数据
+    QRect m_foldRect; // 折叠窗口数据
+    QPoint m_startPos; // 移动窗口起始位置
+    QVector<QColor> m_backColors = {
+        QColor("#604962"),
+        QColor("#0C1824"),
+        QColor("#FFF3FF"),
+        QColor("#D8EAFF")
+    }; // 渐变背景颜色 {暗左 暗右 亮左 亮右}
 };
 
 #endif // MAINWINDOW_H

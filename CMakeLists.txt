@@ -19,6 +19,7 @@ qt_add_executable(
     ${PROJECT_NAME} # 可执行文件名称
     MANUAL_FINALIZATION # 手动完成
     main.cpp
+    res.qrc
     icon.rc # 输出图标
 ) # 生成可执行文件
 
