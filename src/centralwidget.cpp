@@ -49,10 +49,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     bottomLayout->addWidget(m_themeSwitchBtn);
     // 主布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addStretch();
     mainLayout->addLayout(bottomLayout);
+    mainLayout->addStretch();
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
-
-    // 启动欢迎通知
-    // Notification::showNotification(this);
 }
