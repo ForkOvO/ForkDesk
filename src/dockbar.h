@@ -7,6 +7,8 @@
 #include <QWidget>
 
 class QPropertyAnimation;
+class DockBarItem;
+
 class DockBar : public QWidget
 {
     Q_OBJECT
@@ -15,15 +17,15 @@ public:
     ~DockBar();
 
 protected:
-    void enterEvent(QEnterEvent *event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
     void leaveEvent(QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
 private:
     QPropertyAnimation* m_foldAnimation = nullptr; // 折叠动画
-    
-    QRect m_foldRect; // 折叠矩形
-    QRect m_fullRect; // 展开矩形
+
+    QVector<DockBarItem*> m_items; // 按钮集合
+    QRect m_baseRect; // 基础矩形
 };
 
 #endif // DOCKBAR_H
