@@ -6,11 +6,9 @@
 
 Write a Mac-style desktop application using Qt
 
-## Plan
+## Preview
 
-+ The Dockbar button implements specific functions
-+ Drag and drop function at the Dockbar
-+ Dockbar customization feature
+![preview](preview.png)
 
 ## License
 
