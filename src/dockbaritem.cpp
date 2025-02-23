@@ -56,4 +56,12 @@ void DockBarItem::systemConnect()
             STD_DEBUG(DockBarItem.cpp) << "open recycleBin";
         });
     }
+    if (m_name == "cmd") // 打开命令提示符
+    {
+        connect(this, &DockBarItem::clicked, this, [&]{
+            QProcess process;
+            process.startDetached("cmd.exe", QStringList() << "/K" << "start");
+            STD_DEBUG(DockBarItem.cpp) << "open cmd";
+        });
+    }
 }
