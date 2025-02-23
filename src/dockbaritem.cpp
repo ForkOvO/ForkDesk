@@ -1,4 +1,5 @@
 #include "dockbaritem.h"
+#include "definestd.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -35,7 +36,8 @@ void DockBarItem::systemConnect()
     {
         connect(this, &DockBarItem::clicked, this, [&]{
             QProcess process;
-            process.startDetached("explorer");            
+            process.startDetached("explorer");
+            STD_DEBUG(DockBarItem.cpp) << "open explorer";
         });
     }
     if (m_name == "calculator") // 打开计算器
@@ -43,6 +45,15 @@ void DockBarItem::systemConnect()
         connect(this, &DockBarItem::clicked, this, [&]{
             QProcess process;
             process.startDetached("calc");
+            STD_DEBUG(DockBarItem.cpp) << "open calculator";
+        });
+    }
+    if (m_name == "recycleBin") // 打开回收站
+    {
+        connect(this, &DockBarItem::clicked, this, [&]{
+            QProcess process;
+            process.startDetached("explorer.exe", QStringList() << "shell:RecycleBinFolder");
+            STD_DEBUG(DockBarItem.cpp) << "open recycleBin";
         });
     }
 }

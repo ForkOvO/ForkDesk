@@ -9,7 +9,7 @@ DockBar::DockBar(QWidget *parent)
 {
     setMouseTracking(true); // 启用鼠标跟踪
 
-    QVector<QString> btnlist = {"ten_OvO", "calculator", "ten_OvO", "ten_OvO", "ten_OvO", "ten_OvO"};
+    QVector<QString> btnlist = {"ten_OvO", "calculator", "ten_OvO", "ten_OvO", "ten_OvO", "recycleBin"};
     int width = btnlist.size() * 100;
     int height = 200;
 
