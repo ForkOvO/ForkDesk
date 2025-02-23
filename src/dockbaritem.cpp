@@ -23,7 +23,7 @@ void DockBarItem::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing); // 抗锯齿
     // 圆角
     QPainterPath path;
-    path.addRoundedRect(rect(), width() / 10, width() / 10);
+    path.addRoundedRect(rect(), width() / 5, width() / 5);
     painter.setClipPath(path);
     // 绘制图标
     QPixmap pixmap(":/res/" + m_name + ".png");

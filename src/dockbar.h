@@ -21,6 +21,9 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
+    void initBtns(); // 初始化按钮
+
+private:
     QVector<DockBarItem*> m_items; // 按钮集合
     QRect m_baseRect; // 基础矩形
 };
