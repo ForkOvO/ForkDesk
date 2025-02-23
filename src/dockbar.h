@@ -6,7 +6,6 @@
 #include "definestd.h"
 #include <QWidget>
 
-class QPropertyAnimation;
 class DockBarItem;
 
 class DockBar : public QWidget
@@ -22,8 +21,6 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    QPropertyAnimation* m_foldAnimation = nullptr; // 折叠动画
-
     QVector<DockBarItem*> m_items; // 按钮集合
     QRect m_baseRect; // 基础矩形
 };

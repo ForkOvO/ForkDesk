@@ -2,7 +2,6 @@
 #include "dockbaritem.h"
 
 #include <QPainter>
-#include <QPropertyAnimation>
 #include <QMouseEvent>
 
 DockBar::DockBar(QWidget *parent)
@@ -10,7 +9,7 @@ DockBar::DockBar(QWidget *parent)
 {
     setMouseTracking(true); // 启用鼠标跟踪
 
-    QVector<QString> btnlist = {"btn1", "btn2", "btn3", "btn4", "btn5", "btn6", "btn7", "btn8", "btn9", "btn10"};
+    QVector<QString> btnlist = {"ten_OvO", "calculator", "ten_OvO", "ten_OvO", "ten_OvO", "ten_OvO"};
     int width = btnlist.size() * 100;
     int height = 200;
 
@@ -18,15 +17,10 @@ DockBar::DockBar(QWidget *parent)
     m_baseRect = QRect((parent->width() - width) / 2, parent->height() - 300, width, height);
     setGeometry(m_baseRect);
 
-    // 折叠动画
-    m_foldAnimation = new QPropertyAnimation(this, "geometry");
-    m_foldAnimation->setDuration(300);
-
     // 按钮
     for (int i = 0; i < btnlist.size(); i++)
     {
-        DockBarItem *item = new DockBarItem(this);
-        item->setText(btnlist[i]);
+        DockBarItem *item = new DockBarItem(this, btnlist[i]);
         item->setGeometry(100 * i, 100, 100, 100);
         m_items.append(item);
     }

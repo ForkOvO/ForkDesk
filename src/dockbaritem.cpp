@@ -38,4 +38,11 @@ void DockBarItem::systemConnect()
             process.startDetached("explorer");            
         });
     }
+    if (m_name == "calculator") // 打开计算器
+    {
+        connect(this, &DockBarItem::clicked, this, [&]{
+            QProcess process;
+            process.startDetached("calc");
+        });
+    }
 }
