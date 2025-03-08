@@ -48,11 +48,19 @@ void DynamicIsland::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor(Qt::black));
+
+    if (m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped) // 完全折叠状态
+    {
+        painter.setBrush(QColor("#40808080"));
+    }
+    else
+    {
+        painter.setBrush(QColor(Qt::black));
+    }
 
     painter.drawRoundedRect(rect(), 10, 10); // 圆角背景
 
-    if (!m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped) // 展开状态
+    if (!m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped) // 完全展开状态
     {
         // 字体
         QFont font("Microsoft YaHei", 15);
