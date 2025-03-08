@@ -26,8 +26,16 @@ DynamicIsland::~DynamicIsland()
 {
 }
 
+void DynamicIsland::notification(QString content)
+{
+    m_foldTimer->stop();
+    m_content = content;
+    m_foldTimer->start(4000); // 4秒后自动折叠
+}
+
 void DynamicIsland::enterEvent(QEnterEvent *event)
 {
+    m_foldTimer->stop();
     setFold(false); // 鼠标进入时展开
 }
 
@@ -44,7 +52,7 @@ void DynamicIsland::paintEvent(QPaintEvent *event)
     painter.setBrush(QColor(Qt::black));
 
     painter.drawRoundedRect(rect(), 10, 10); // 圆角背景
-    
+
     if (!m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped) // 展开状态
     {
         // 字体
@@ -53,16 +61,18 @@ void DynamicIsland::paintEvent(QPaintEvent *event)
         // 画笔
         QPen pen(Qt::white);
         painter.setPen(pen);
-        painter.drawText(rect(), Qt::AlignCenter, "否客桌面欢迎您"); // 文字
+        painter.drawText(rect(), Qt::AlignCenter, m_content); // 文字
     }
 }
 
 void DynamicIsland::setFold(bool toFold)
 {
+    STD_DEBUG(DynamicIsland.cpp) << "change dynamic island fold state to" << toFold;
     m_foldTimer->stop();
     m_isFold = toFold;
     m_foldAnimation->stop();
     m_foldAnimation->setStartValue(this->geometry());
     m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
     m_foldAnimation->start();
+    m_content = "否客桌面欢迎您 ^_^";
 }

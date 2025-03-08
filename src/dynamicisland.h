@@ -15,6 +15,8 @@ public:
     DynamicIsland(QWidget *parent = nullptr);
     ~DynamicIsland();
 
+    void notification(QString content);
+
 protected:
     // 折叠
     void enterEvent(QEnterEvent *event) override; // 展开
@@ -29,6 +31,7 @@ private:
     QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画
     QTimer* m_foldTimer = nullptr; // 折叠定时器
 
+    QString m_content = "否客桌面欢迎您 ^_^"; // 通知内容
     bool m_isFold = false; // 是否折叠
     QRect m_fullRect; // 展开窗口数据
     QRect m_foldRect; // 折叠窗口数据
