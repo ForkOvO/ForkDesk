@@ -1,5 +1,4 @@
 #include "centralwidget.h"
-#include "mainwindow.h"
 #include "publiccache.h"
 #include "themebutton.h"
 #include "dockbar.h"
@@ -16,16 +15,9 @@
 CentralWidget::CentralWidget(QWidget *parent)
     : QWidget(parent)
 {
-    m_parent = static_cast<MainWindow*>(parent); // 折叠窗口
-    setFixedSize(m_parent->size()); // 固定大小
-
+    setFixedSize(parent->size()); // 固定和父窗口一样大
     setAttribute(Qt::WA_TranslucentBackground); // 透明背景
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 屏幕大小
-
-    // 折叠开关按钮
-    m_foldSwitchBtn = new ThemeButton(this);
-    m_foldSwitchBtn->move(0, 0);
-    connect(m_foldSwitchBtn, &QPushButton::clicked, m_parent, &MainWindow::changeFoldStatus); // 折叠切换
 
     // 底部栏
     m_dockBar = new DockBar(this);

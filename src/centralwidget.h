@@ -17,9 +17,8 @@ public:
     explicit CentralWidget(QWidget *parent = nullptr);
 
 private:
-    MainWindow* m_parent = nullptr; // 折叠窗口
     DockBar* m_dockBar = nullptr; // 底部栏
-    ThemeButton* m_foldSwitchBtn = nullptr; // 折叠开关
+    
     ThemeButton* m_themeSwitchBtn = nullptr; // 主题切换
     ThemeButton* m_githubBtn = nullptr; // GitHub
     ThemeButton* m_bilibiliBtn = nullptr; // Bilibili

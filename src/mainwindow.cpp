@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "publiccache.h"
 #include "centralwidget.h"
+#include "themebutton.h"
 
 #include <QScreen>
 #include <QGuiApplication>
@@ -32,6 +33,11 @@ MainWindow::MainWindow(QWidget *parent)
     // 中心控件
     m_centralWidget = new CentralWidget(this);
     m_centralWidget->move(0, 0);
+
+    // 折叠开关按钮
+    m_foldSwitchBtn = new ThemeButton(this);
+    m_foldSwitchBtn->move(0, 0);
+    connect(m_foldSwitchBtn, &QPushButton::clicked, this, &MainWindow::changeFoldStatus); // 折叠切换
 
     // 添加窗口到缓存
     PublicCache* cache = PublicCache::instance();

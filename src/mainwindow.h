@@ -7,6 +7,7 @@
 
 class QPropertyAnimation;
 class CentralWidget;
+class ThemeButton;
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +29,7 @@ protected:
     void dropEvent(QDropEvent *event) override;
 
 private:
+    ThemeButton* m_foldSwitchBtn = nullptr; // 折叠开关按钮
     CentralWidget* m_centralWidget = nullptr; // 中心控件
     QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画
 
