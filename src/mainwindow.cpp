@@ -93,8 +93,19 @@ void MainWindow::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
     painter.setBrush(gradient);
-    if (m_isFold) painter.drawRoundedRect(rect(), 10, 10);
-    else painter.drawRect(rect());
+    if (m_isFold)
+    {
+        // 圆角渐变背景
+        painter.drawRoundedRect(rect(), 10, 10);
+    }
+    else
+    {
+        // 背景渐变矩形
+        painter.drawRect(rect());
+        // 顶部菜单栏背景
+        painter.setBrush(QColor("#40808080"));
+        painter.drawRect(0, 0, width(), 50);
+    }
     QMainWindow::paintEvent(event);
 }
 
