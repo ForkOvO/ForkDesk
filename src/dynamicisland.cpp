@@ -28,7 +28,6 @@ DynamicIsland::~DynamicIsland()
 
 void DynamicIsland::notification(QString content)
 {
-    m_foldTimer->stop();
     m_content = content;
     setFold(false); // 展开显示
     m_foldTimer->start(4000); // 4秒后自动折叠
@@ -36,7 +35,6 @@ void DynamicIsland::notification(QString content)
 
 void DynamicIsland::enterEvent(QEnterEvent *event)
 {
-    m_foldTimer->stop();
     setFold(false); // 鼠标进入时展开
 }
 
@@ -70,10 +68,14 @@ void DynamicIsland::setFold(bool toFold)
 {
     STD_DEBUG(DynamicIsland.cpp) << "change dynamic island fold state to" << toFold;
     m_foldTimer->stop();
-    m_isFold = toFold;
-    m_foldAnimation->stop();
-    m_foldAnimation->setStartValue(this->geometry());
-    m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
-    m_foldAnimation->start();
+    if (m_isFold != toFold)
+    {
+        m_isFold = toFold;
+        m_foldAnimation->stop();
+        m_foldAnimation->setStartValue(this->geometry());
+        m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
+        m_foldAnimation->start();
+    }
     if (m_isFold) m_content = "否客桌面欢迎您 ^_^";
+    update();
 }
