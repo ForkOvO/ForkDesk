@@ -17,13 +17,17 @@ public:
 
 protected:
     // 折叠
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
+    void enterEvent(QEnterEvent *event) override; // 展开
+    void leaveEvent(QEvent *event) override; // 折叠
     // 绘制背景
     void paintEvent(QPaintEvent *event) override;
 
 private:
+    void setFold(bool toFold = true); // 设置折叠状态
+
+private:
     QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画
+    QTimer* m_foldTimer = nullptr; // 折叠定时器
 
     bool m_isFold = false; // 是否折叠
     QRect m_fullRect; // 展开窗口数据

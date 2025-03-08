@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QPropertyAnimation>
+#include <QTimer>
 
 DynamicIsland::DynamicIsland(QWidget *parent)
     : QWidget(parent)
@@ -14,6 +15,11 @@ DynamicIsland::DynamicIsland(QWidget *parent)
 
     // 设置窗口属性
     setGeometry(m_fullRect);
+
+    // 折叠定时器
+    m_foldTimer = new QTimer(this);
+    connect(m_foldTimer, &QTimer::timeout, this, [&]{ setFold(true); });
+    m_foldTimer->start(4000); // 开始4秒后自动折叠
 }
 
 DynamicIsland::~DynamicIsland()
@@ -22,24 +28,12 @@ DynamicIsland::~DynamicIsland()
 
 void DynamicIsland::enterEvent(QEnterEvent *event)
 {
-    // 展开
-    STD_DEBUG(DynamicIsland.cpp) << "expand dynamicisland";
-    m_isFold = false;
-    m_foldAnimation->stop();
-    m_foldAnimation->setStartValue(this->geometry());
-    m_foldAnimation->setEndValue(m_fullRect);
-    m_foldAnimation->start();
+    setFold(false); // 鼠标进入时展开
 }
 
 void DynamicIsland::leaveEvent(QEvent *event)
 {
-    // 折叠
-    STD_DEBUG(DynamicIsland.cpp) << "fold dynamicisland";
-    m_isFold = true;
-    m_foldAnimation->stop();
-    m_foldAnimation->setStartValue(this->geometry());
-    m_foldAnimation->setEndValue(m_foldRect);
-    m_foldAnimation->start();
+    m_foldTimer->start(2000); // 鼠标离开2秒后自动折叠
 }
 
 void DynamicIsland::paintEvent(QPaintEvent *event)
@@ -62,4 +56,14 @@ void DynamicIsland::paintEvent(QPaintEvent *event)
     {
         painter.drawText(rect(), Qt::AlignCenter, "否客桌面欢迎您"); // 文字
     }
+}
+
+void DynamicIsland::setFold(bool toFold)
+{
+    m_foldTimer->stop();
+    m_isFold = toFold;
+    m_foldAnimation->stop();
+    m_foldAnimation->setStartValue(this->geometry());
+    m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
+    m_foldAnimation->start();
 }
