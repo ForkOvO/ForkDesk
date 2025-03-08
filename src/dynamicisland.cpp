@@ -30,6 +30,7 @@ void DynamicIsland::notification(QString content)
 {
     m_foldTimer->stop();
     m_content = content;
+    setFold(false); // 展开显示
     m_foldTimer->start(4000); // 4秒后自动折叠
 }
 
@@ -74,5 +75,5 @@ void DynamicIsland::setFold(bool toFold)
     m_foldAnimation->setStartValue(this->geometry());
     m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
     m_foldAnimation->start();
-    m_content = "否客桌面欢迎您 ^_^";
+    if (m_isFold) m_content = "否客桌面欢迎您 ^_^";
 }

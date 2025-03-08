@@ -69,6 +69,7 @@ void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
             if (!url.isLocalFile() || !QFileInfo(url.toLocalFile()).isExecutable())
             {
                 STD_DEBUG(MainWindow.cpp) << "one of the files is not executable";
+                m_dynamicIsland->notification("其中一个文件不是可执行文件");
                 return;
             }
         }
@@ -83,5 +84,6 @@ void CentralWidget::dropEvent(QDropEvent *event)
     for (const QUrl &url : event->mimeData()->urls())
     {
         STD_DEBUG(MainWindow.cpp) << "dropped file: " << url.toLocalFile();
+        m_dynamicIsland->notification("成功拖入可执行文件");
     }
 }
