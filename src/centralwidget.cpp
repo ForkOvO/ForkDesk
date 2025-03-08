@@ -2,6 +2,7 @@
 #include "publiccache.h"
 #include "themebutton.h"
 #include "dockbar.h"
+#include "dynamicisland.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -21,6 +22,9 @@ CentralWidget::CentralWidget(QWidget *parent)
 
     // 底部栏
     m_dockBar = new DockBar(this);
+
+    // 否客岛
+    m_dynamicIsland = new DynamicIsland(this);
 
     // 主题切换按钮
     m_themeSwitchBtn = new ThemeButton(this, "theme");
