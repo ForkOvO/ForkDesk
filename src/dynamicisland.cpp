@@ -40,20 +40,19 @@ void DynamicIsland::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
-    // 字体
-    QFont font("Microsoft YaHei", 15);
-    painter.setFont(font);
-    // 画笔
-    QPen pen(Qt::white);
-    pen.setWidth(1);
-    painter.setPen(pen);
-    // 画刷
+    painter.setPen(Qt::NoPen);
     painter.setBrush(QColor(Qt::black));
 
-    // 绘制
     painter.drawRoundedRect(rect(), 10, 10); // 圆角背景
-    if (!m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped)
+    
+    if (!m_isFold && m_foldAnimation->state() == QAbstractAnimation::Stopped) // 展开状态
     {
+        // 字体
+        QFont font("Microsoft YaHei", 15);
+        painter.setFont(font);
+        // 画笔
+        QPen pen(Qt::white);
+        painter.setPen(pen);
         painter.drawText(rect(), Qt::AlignCenter, "否客桌面欢迎您"); // 文字
     }
 }
