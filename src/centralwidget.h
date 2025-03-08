@@ -17,6 +17,11 @@ class CentralWidget : public QWidget
 public:
     explicit CentralWidget(QWidget *parent = nullptr);
 
+protected:
+    // 拖拽
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+
 private:
     DockBar* m_dockBar = nullptr; // 底部栏
     DynamicIsland* m_dynamicIsland = nullptr; // 否客岛

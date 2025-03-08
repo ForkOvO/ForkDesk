@@ -12,6 +12,10 @@
 #include <QUrl>
 #include <QScreen>
 #include <QGuiApplication>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QFileInfo>
 
 CentralWidget::CentralWidget(QWidget *parent)
     : QWidget(parent)
@@ -19,6 +23,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     setFixedSize(parent->size()); // 固定和父窗口一样大
     setAttribute(Qt::WA_TranslucentBackground); // 透明背景
     setGeometry(QGuiApplication::primaryScreen()->availableGeometry()); // 屏幕大小
+    setAcceptDrops(true); // 允许外界拖拽进入
 
     // 底部栏
     m_dockBar = new DockBar(this);
@@ -51,4 +56,32 @@ CentralWidget::CentralWidget(QWidget *parent)
     mainLayout->addLayout(btnLayout);
     mainLayout->addStretch();
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
+}
+
+void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    STD_DEBUG(CentralWidget.cpp) << "dragEnterEvent";
+    // 如果是本地二进制可执行文件则接受拖拽
+    if (event->mimeData()->hasUrls())
+    {
+        for (const QUrl &url : event->mimeData()->urls())
+        {
+            if (!url.isLocalFile() || !QFileInfo(url.toLocalFile()).isExecutable())
+            {
+                STD_DEBUG(MainWindow.cpp) << "one of the files is not executable";
+                return;
+            }
+        }
+        event->acceptProposedAction();
+    }
+}
+
+void CentralWidget::dropEvent(QDropEvent *event)
+{
+    STD_DEBUG(CentralWidget.cpp) << "dropEvent";
+    // 获取拖拽的文件路径
+    for (const QUrl &url : event->mimeData()->urls())
+    {
+        STD_DEBUG(MainWindow.cpp) << "dropped file: " << url.toLocalFile();
+    }
 }
