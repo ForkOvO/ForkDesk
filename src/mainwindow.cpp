@@ -8,6 +8,10 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QGradient>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QMimeData>
+#include <QFileInfo>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint); // 无边框 | 窗口置底
     setAttribute(Qt::WA_TranslucentBackground); // 透明
     setGeometry(m_fullRect); // 初始窗口大小
+    setAcceptDrops(true); // 允许拖拽
 
     // 中心控件
     m_centralWidget = new CentralWidget(this);
@@ -85,4 +90,32 @@ void MainWindow::paintEvent(QPaintEvent *event)
     if (m_isFold) painter.drawRoundedRect(rect(), 10, 10);
     else painter.drawRect(rect());
     QMainWindow::paintEvent(event);
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    STD_DEBUG(MainWindow.cpp) << "dragEnterEvent";
+    // 如果是本地二进制可执行文件则接受拖拽
+    if (event->mimeData()->hasUrls())
+    {
+        for (const QUrl &url : event->mimeData()->urls())
+        {
+            if (!url.isLocalFile() || !QFileInfo(url.toLocalFile()).isExecutable())
+            {
+                STD_DEBUG(MainWindow.cpp) << "one of the files is not executable";
+                return;
+            }
+        }
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    STD_DEBUG(MainWindow.cpp) << "dropEvent";
+    // 获取拖拽的文件路径
+    for (const QUrl &url : event->mimeData()->urls())
+    {
+        STD_DEBUG(MainWindow.cpp) << "dropped file: " << url.toLocalFile();
+    }
 }

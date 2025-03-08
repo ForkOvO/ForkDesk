@@ -23,6 +23,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     // 渐变背景
     void paintEvent(QPaintEvent *event) override;
+    // 拖拽
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 private:
     CentralWidget* m_centralWidget = nullptr; // 中心控件
