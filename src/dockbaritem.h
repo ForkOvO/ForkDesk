@@ -19,7 +19,8 @@ private:
     void systemConnect(); // 系统应用槽函数
 
 private:
-    QString m_name;
+    QString m_name; // 应用名称
+    QPixmap m_icon; // 应用图标
 };
 
 #endif // DOCKBARITEM_H

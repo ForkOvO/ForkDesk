@@ -4,13 +4,30 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QProcess>
+#include <QFileInfo>
+#include <QFileIconProvider>
 
 DockBarItem::DockBarItem(QWidget *parent, QString name, bool isSystem)
     : QPushButton(parent)
     , m_name(name)
 {
     setMouseTracking(true); // 启用鼠标跟踪
-    if (isSystem) systemConnect(); // 系统应用
+    if (isSystem) // 系统应用
+    {
+        m_icon = QPixmap(":/res/" + m_name + ".png");
+        systemConnect();
+    }
+    else // 自定义应用
+    {
+        QFileInfo fileInfo(m_name);
+        QFileIconProvider icon;
+        m_icon = icon.icon(fileInfo).pixmap(100, 100);
+        connect(this, &DockBarItem::clicked, this, [&]{
+            QProcess::startDetached(m_name);
+        });
+    }
+    show();
+    update();
 }
 
 DockBarItem::~DockBarItem()
@@ -26,8 +43,7 @@ void DockBarItem::paintEvent(QPaintEvent *event)
     path.addRoundedRect(rect(), width() / 5, width() / 5);
     painter.setClipPath(path);
     // 绘制图标
-    QPixmap pixmap(":/res/" + m_name + ".png");
-    painter.drawPixmap(rect(), pixmap);
+    painter.drawPixmap(rect(), m_icon);
 }
 
 void DockBarItem::systemConnect()

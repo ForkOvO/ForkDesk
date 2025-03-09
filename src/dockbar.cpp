@@ -28,6 +28,15 @@ DockBar::~DockBar()
 {
 }
 
+void DockBar::addItem(QString name, bool isSystem)
+{
+    STD_DEBUG(DockBar.cpp) << "addItem: " << name << " isSystem: " << isSystem;
+    DockBarItem *item = new DockBarItem(this, name, isSystem);
+    m_items.append(item);
+    m_baseRect = QRect(x() - 60, y(), m_items.size() * 120 + 20, 240);
+    initBtns();
+}
+
 void DockBar::mouseMoveEvent(QMouseEvent *event)
 {
     // 放大悬浮的按钮
@@ -95,9 +104,9 @@ void DockBar::paintEvent(QPaintEvent *event)
 
 void DockBar::initBtns()
 {
+    setGeometry(m_baseRect);
     for (int i = 0; i < m_items.size(); i++) // 缩小所有的按钮
     {
         m_items[i]->setGeometry(120 * i + 20, 120, 100, 100);
     }
-    setGeometry(m_baseRect);
 }

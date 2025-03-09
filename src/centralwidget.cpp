@@ -93,7 +93,7 @@ void CentralWidget::dropEvent(QDropEvent *event)
     // 获取拖拽的文件路径
     for (const QUrl &url : event->mimeData()->urls())
     {
-        STD_DEBUG(MainWindow.cpp) << "dropped file: " << url.toLocalFile();
+        m_dockBar->addItem(url.toLocalFile());
         m_dynamicIsland->notification("成功拖入可执行文件");
     }
 }

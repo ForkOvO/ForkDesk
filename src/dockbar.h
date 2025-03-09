@@ -15,6 +15,8 @@ public:
     explicit DockBar(QWidget *parent = nullptr);
     ~DockBar();
 
+    void addItem(QString name, bool isSystem = false); // 添加按钮
+
 protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void leaveEvent(QEvent *event) override;
