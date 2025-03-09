@@ -34,7 +34,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     m_dynamicIsland = new DynamicIsland(this);
 
     // 主题切换按钮
-    m_themeSwitchBtn = new ThemeButton(this, "theme");
+    m_themeSwitchBtn = new ThemeButton(this, "theme", 25);
     connect(m_themeSwitchBtn, &QPushButton::clicked, this, [&](){
         PublicCache *cache = PublicCache::instance();
         if (cache->get("theme").toString() == "dark") cache->set("theme", "white");
@@ -48,7 +48,7 @@ CentralWidget::CentralWidget(QWidget *parent)
     connect(m_bilibiliBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://space.bilibili.com/387426555")); }); // 打开bilibili
     // 时间标签
     m_timeLabel = new ThemeTextLabel(this, "xxxx-xx-xx xx:xx");
-    m_timeLabel->setFixedSize(120, 50);
+    m_timeLabel->setFixedSize(120, 25);
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this, [&](){m_timeLabel->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm")); }); // 更新时间
     m_timer->start(1000); // 每秒更新时间

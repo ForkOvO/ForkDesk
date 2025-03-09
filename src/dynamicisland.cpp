@@ -9,7 +9,7 @@ DynamicIsland::DynamicIsland(QWidget *parent)
 {
     // 折叠展开数据
     m_fullRect = QRect((parent->width() - 400) / 2, 0, 400, 50);
-    m_foldRect = QRect((parent->width() - 50) / 2, 0, 50, 50);
+    m_foldRect = QRect((parent->width() - 25) / 2, 0, 25, 25);
     m_foldAnimation = new QPropertyAnimation(this, "geometry");
     m_foldAnimation->setDuration(300);
 
