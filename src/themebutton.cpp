@@ -6,33 +6,29 @@
 ThemeButton::ThemeButton(QWidget *parent, QString name, int size)
     : QPushButton(parent)
 {
-    m_size = size;
+    // 初始化
     m_name = name;
-    PublicCache* cache = PublicCache::instance();
-    cache->addWidget(this);
+    setFixedSize(size, size);
+    // 加入缓存
+    PublicCache::instance()->addWidget(this);
 }
 
 ThemeButton::~ThemeButton()
 {
-    PublicCache* cache = PublicCache::instance();
-    cache->removeWidget(this);
+    // 从缓存中移除
+    PublicCache::instance()->removeWidget(this);
 }
 
 void ThemeButton::paintEvent(QPaintEvent *event)
 {
-    setFixedSize(m_size, m_size);
-
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing); // 抗锯齿
-    PublicCache* cache = PublicCache::instance();
-    if (cache->get("theme") == "dark")
+    QString theme = PublicCache::instance()->get("theme").toString();
+    if (theme == "dark")
     {
-        QPixmap pixmap(":/res/" + m_name + "_white.png");
-        painter.drawPixmap(rect(), pixmap);
+        setStyleSheet(QString("border-image: url(:/res/%1_white.png);").arg(m_name));
     }
     else
     {
-        QPixmap pixmap(":/res/" + m_name + "_black.png");
-        painter.drawPixmap(rect(), pixmap);
+        setStyleSheet(QString("border-image: url(:/res/%1_black.png);").arg(m_name));
     }
+    QPushButton::paintEvent(event);
 }

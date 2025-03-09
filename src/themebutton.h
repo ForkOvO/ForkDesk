@@ -15,7 +15,6 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    int m_size;
     QString m_name;
 };
 
