@@ -14,6 +14,8 @@ ThemeTextLabel::ThemeTextLabel(QWidget *parent, QString text)
 
 ThemeTextLabel::~ThemeTextLabel()
 {
+    // 从缓存中移除
+    PublicCache::instance()->removeWidget(this);
 }
 
 void ThemeTextLabel::paintEvent(QPaintEvent *event)
