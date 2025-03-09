@@ -3,6 +3,7 @@
 #include "themebutton.h"
 #include "dockbar.h"
 #include "dynamicisland.h"
+#include "themetextlabel.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -16,6 +17,7 @@
 #include <QDropEvent>
 #include <QMimeData>
 #include <QFileInfo>
+#include <QTimer>
 
 CentralWidget::CentralWidget(QWidget *parent)
     : QWidget(parent)
@@ -44,12 +46,20 @@ CentralWidget::CentralWidget(QWidget *parent)
     // bilibili按钮
     m_bilibiliBtn = new ThemeButton(this, "bilibili", 25);
     connect(m_bilibiliBtn, &QPushButton::clicked, this, [&](){ QDesktopServices::openUrl(QUrl("https://space.bilibili.com/387426555")); }); // 打开bilibili
+    // 时间标签
+    m_timeLabel = new ThemeTextLabel(this, "xxxx-xx-xx xx:xx");
+    m_timeLabel->setFixedSize(120, 50);
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, [&](){m_timeLabel->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm")); }); // 更新时间
+    m_timer->start(1000); // 每秒更新时间
+
     // 布局
     QHBoxLayout* btnLayout = new QHBoxLayout();
     btnLayout->addStretch();
     btnLayout->addWidget(m_githubBtn);
     btnLayout->addWidget(m_bilibiliBtn);
     btnLayout->addWidget(m_themeSwitchBtn);
+    btnLayout->addWidget(m_timeLabel);
     
     // 主布局
     QVBoxLayout* mainLayout = new QVBoxLayout(this);

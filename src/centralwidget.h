@@ -10,6 +10,7 @@ class MainWindow; // 折叠窗口
 class ThemeButton; // 主题按钮
 class DockBar; // 底部栏
 class DynamicIsland; // 否客岛
+class ThemeTextLabel; // 主题文字
 
 class CentralWidget : public QWidget
 {
@@ -25,10 +26,12 @@ protected:
 private:
     DockBar* m_dockBar = nullptr; // 底部栏
     DynamicIsland* m_dynamicIsland = nullptr; // 否客岛
-    
     ThemeButton* m_themeSwitchBtn = nullptr; // 主题切换
     ThemeButton* m_githubBtn = nullptr; // GitHub
     ThemeButton* m_bilibiliBtn = nullptr; // Bilibili
+    ThemeTextLabel* m_timeLabel = nullptr; // 时间
+
+    QTimer* m_timer = nullptr; // 定时器
 };
 
 #endif // CENTRALWIDGET_H
