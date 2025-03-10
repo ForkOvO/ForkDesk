@@ -26,6 +26,10 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
+    void hideTaskBar(); // 隐藏任务栏
+    void showTaskBar(); // 显示任务栏
+
+private:
     ThemeButton* m_foldSwitchBtn = nullptr; // 折叠开关按钮
     CentralWidget* m_centralWidget = nullptr; // 中心控件
     QPropertyAnimation* m_foldAnimation = nullptr; // 折叠窗口动画

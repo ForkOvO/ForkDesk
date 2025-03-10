@@ -10,12 +10,13 @@
 #include <QPainter>
 #include <QGradient>
 #include <QPainterPath>
+#include <windows.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     // 折叠展开数据
-    m_fullRect = QGuiApplication::primaryScreen()->availableGeometry(); // 全屏不包含任务栏
+    m_fullRect = QGuiApplication::primaryScreen()->geometry(); // 全屏
     m_foldRect = QRect(m_fullRect.width() - 50, m_fullRect.height() / 2 - 25, 50, 50); // 右方居中
     m_foldAnimation = new QPropertyAnimation(this, "geometry"); // 折叠动画
     m_foldAnimation->setDuration(300);
@@ -39,10 +40,13 @@ MainWindow::MainWindow(QWidget *parent)
     PublicCache* cache = PublicCache::instance();
     cache->addWidget(this);
     update();
+
+    hideTaskBar(); // 隐藏任务栏
 }
 
 MainWindow::~MainWindow()
 {
+    showTaskBar(); // 显示任务栏
 }
 
 void MainWindow::changeFoldStatus()
@@ -52,6 +56,10 @@ void MainWindow::changeFoldStatus()
     m_foldAnimation->setStartValue(this->geometry());
     m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
     m_foldAnimation->start(); // 开始动画
+
+    // 任务栏
+    if (m_isFold) showTaskBar();
+    else hideTaskBar();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -112,4 +120,16 @@ void MainWindow::paintEvent(QPaintEvent *event)
         painter.fillPath(path, QBrush(QColor("#40808080")));
     }
     QMainWindow::paintEvent(event);
+}
+
+void MainWindow::hideTaskBar()
+{
+    HWND taskbar = FindWindow(L"Shell_TrayWnd", NULL);
+    ShowWindow(taskbar, SW_HIDE);
+}
+
+void MainWindow::showTaskBar()
+{
+    HWND taskbar = FindWindow(L"Shell_TrayWnd", NULL);
+    ShowWindow(taskbar, SW_SHOW);
 }
