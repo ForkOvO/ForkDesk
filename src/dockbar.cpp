@@ -13,7 +13,7 @@ DockBar::DockBar(QWidget *parent)
     QVector<QString> btnlist = {"ten_OvO", "calculator", "cmd", "recycleBin"};
     int width = btnlist.size() * 120 + 20;
     int height = 240;
-    m_baseRect = QRect((parent->width() - width) / 2, parent->height() - 300, width, height);
+    m_baseRect = QRect((parent->width() - width) / 2, parent->height() - height, width, height);
 
     for (int i = 0; i < btnlist.size(); i++) // 按钮
     {
