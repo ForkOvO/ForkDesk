@@ -16,6 +16,10 @@ Write a Mac-style desktop application using Qt6
 + Windows 11
 + CMake 3.30.5
 
+## UI Design
+
+[pixso](https://pixso.cn/app/editor/_iFcn-SXzf1rCrLyiq58Qw?icon_type=1&page-id=0%3A1)
+
 ## License
 
 [Apache License 2.0](LICENSE)

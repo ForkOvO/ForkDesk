@@ -16,6 +16,10 @@
 + Windows 11
 + CMake 3.30.5
 
+## 用户界面设计
+
+[pixso](https://pixso.cn/app/editor/_iFcn-SXzf1rCrLyiq58Qw?icon_type=1&page-id=0%3A1)
+
 ## 许可证
 
 [Apache License 2.0](LICENSE)

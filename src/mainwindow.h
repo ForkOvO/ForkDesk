@@ -39,10 +39,10 @@ private:
     QRect m_foldRect; // 折叠窗口数据
     QPoint m_startPos; // 移动窗口起始位置
     QVector<QColor> m_backColors = {
-        QColor("#604962"),
-        QColor("#0C1824"),
-        QColor("#FFF3FF"),
-        QColor("#D8EAFF")
+        QColor("#611742"),
+        QColor("#1D6763"),
+        QColor("#D16BA5"),
+        QColor("#5FFBF1")
     }; // 渐变背景颜色 {暗左 暗右 亮左 亮右}
 };
 

@@ -81,31 +81,36 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-    QLinearGradient gradient(0, height(), width(), 0); // 从左下角到右上角
-    PublicCache *cache = PublicCache::instance();
-    if (cache->get("theme").toString() == "dark")
-    {
-        gradient.setColorAt(0, m_backColors[0]);
-        gradient.setColorAt(1, m_backColors[1]);
-    }
-    else
-    {
-        gradient.setColorAt(0, m_backColors[2]);
-        gradient.setColorAt(1, m_backColors[3]);
-    }
+
+    QString theme = PublicCache::instance()->get("theme").toString();
+    
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(gradient);
+
     if (m_isFold)
     {
         // 圆角渐变背景
+        QLinearGradient gradient(0, height(), width(), 0); // 从左下角到右上角
+        if (theme == "dark")
+        {
+            gradient.setColorAt(0, m_backColors[0]);
+            gradient.setColorAt(1, m_backColors[1]);
+        }
+        else
+        {
+            gradient.setColorAt(0, m_backColors[2]);
+            gradient.setColorAt(1, m_backColors[3]);
+        }
+        painter.setBrush(gradient);
         painter.drawRoundedRect(rect(), 10, 10);
     }
     else
     {
-        // 背景渐变矩形
-        painter.drawRect(rect());
+        // 渐变背景
+        QPixmap pixmap;
+        if (theme == "dark") painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_1.svg"));
+        else painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_0.svg"));
         // 顶部菜单栏背景
         QPainterPath path;
         path.moveTo(0, 0); // 左上开始

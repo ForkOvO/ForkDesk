@@ -1,0 +1,14 @@
+<svg width="2560.000000" height="1600.000000" viewBox="0 0 2560 1600" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<linearGradient x1="2559.995605" y1="0.000244" x2="0.000732" y2="1600.000000" id="paint_linear_9_4_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#1D6763"/>
+			<stop offset="0.480149" stop-color="#1A366A"/>
+			<stop offset="1.000000" stop-color="#611742"/>
+		</linearGradient>
+	</defs>
+	<rect width="2560.000000" height="1600.000000" fill="#EFEFEF"/>
+	<rect id="画板 1" width="2560.000000" height="1600.000000" fill="url(#paint_linear_9_4_0)" fill-opacity="1.000000"/>
+</svg>
