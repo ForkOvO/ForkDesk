@@ -14,7 +14,7 @@ DockBarItem::DockBarItem(QWidget *parent, QString name, bool isSystem)
     setMouseTracking(true); // 启用鼠标跟踪
     if (isSystem) // 系统应用
     {
-        m_icon = QPixmap(":/res/" + m_name + ".png");
+        m_icon = QPixmap(":/res/" + m_name + ".svg");
         systemConnect();
     }
     else // 自定义应用
