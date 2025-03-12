@@ -18,6 +18,8 @@
 #include <QMimeData>
 #include <QFileInfo>
 #include <QTimer>
+#include <QPainter>
+#include <QPainterPath>
 
 CentralWidget::CentralWidget(QWidget *parent)
     : QWidget(parent)
@@ -96,4 +98,23 @@ void CentralWidget::dropEvent(QDropEvent *event)
         m_dockBar->addItem(url.toLocalFile());
         m_dynamicIsland->notification("成功拖入可执行文件");
     }
+}
+
+void CentralWidget::paintEvent(QPaintEvent *event)
+{
+    // 顶部菜单栏背景
+    QPainterPath path;
+    path.moveTo(0, 0); // 左上开始
+    path.lineTo(width(), 0); // 右上角
+    path.lineTo(width(), 25); // 右下角
+    path.lineTo(60, 25); // 接壤圆弧右侧
+    path.arcTo(50, 25, 20, 20, 90, 90); // 接壤圆弧
+    path.lineTo(50, 40); // 折叠按钮右侧
+    path.arcTo(30, 30, 20, 20, 0, -90); // 折叠按钮右下角圆弧
+    path.lineTo(0, 50); // 左下角
+    path.closeSubpath();
+    
+    QPainter painter(this);
+    painter.fillPath(path, QBrush(QColor("#40808080")));
+    QWidget::paintEvent(event);
 }

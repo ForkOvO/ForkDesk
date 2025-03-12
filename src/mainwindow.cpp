@@ -57,9 +57,16 @@ void MainWindow::changeFoldStatus()
     m_foldAnimation->setEndValue(m_isFold ? m_foldRect : m_fullRect);
     m_foldAnimation->start(); // 开始动画
 
-    // 任务栏
-    if (m_isFold) showTaskBar();
-    else hideTaskBar();
+    if (m_isFold)
+    {
+        m_centralWidget->hide();
+        showTaskBar();
+    }
+    else
+    {
+        m_centralWidget->show();
+        hideTaskBar();
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event)
@@ -81,43 +88,21 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-
-    QString theme = PublicCache::instance()->get("theme").toString();
-    
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.setPen(Qt::NoPen);
 
-    if (m_isFold)
+    if (m_isFold) // 折叠绘制圆角
     {
-        // 圆角
         QPainterPath path;
         path.addRoundedRect(rect(), width() / 5, width() / 5);
         painter.setClipPath(path);
-        // 渐变背景
-        QPixmap pixmap;
-        if (theme == "dark") painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_1.svg"));
-        else painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_0.svg"));
     }
-    else
-    {
-        // 渐变背景
-        QPixmap pixmap;
-        if (theme == "dark") painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_1.svg"));
-        else painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_0.svg"));
-        // 顶部菜单栏背景
-        QPainterPath path;
-        path.moveTo(0, 0); // 左上开始
-        path.lineTo(width(), 0); // 右上角
-        path.lineTo(width(), 25); // 右下角
-        path.lineTo(60, 25); // 接壤圆弧右侧
-        path.arcTo(50, 25, 20, 20, 90, 90); // 接壤圆弧
-        path.lineTo(50, 40); // 折叠按钮右侧
-        path.arcTo(30, 30, 20, 20, 0, -90); // 折叠按钮右下角圆弧
-        path.lineTo(0, 50); // 左下角
-        path.closeSubpath();
-        painter.fillPath(path, QBrush(QColor("#40808080")));
-    }
+    // 渐变背景
+    QPixmap pixmap;
+    QString theme = PublicCache::instance()->get("theme").toString();
+    if (theme == "dark") painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_1.svg"));
+    else painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_0.svg"));
     QMainWindow::paintEvent(event);
 }
 

@@ -22,6 +22,8 @@ protected:
     // 拖拽
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
+    // 绘制菜单栏背景
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     DockBar* m_dockBar = nullptr; // 底部栏
