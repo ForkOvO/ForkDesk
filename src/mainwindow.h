@@ -38,12 +38,6 @@ private:
     QRect m_fullRect; // 展开窗口数据
     QRect m_foldRect; // 折叠窗口数据
     QPoint m_startPos; // 移动窗口起始位置
-    QVector<QColor> m_backColors = {
-        QColor("#611742"),
-        QColor("#1D6763"),
-        QColor("#D16BA5"),
-        QColor("#5FFBF1")
-    }; // 渐变背景颜色 {暗左 暗右 亮左 亮右}
 };
 
 #endif // MAINWINDOW_H

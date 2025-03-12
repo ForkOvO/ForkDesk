@@ -90,20 +90,14 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
     if (m_isFold)
     {
-        // 圆角渐变背景
-        QLinearGradient gradient(0, height(), width(), 0); // 从左下角到右上角
-        if (theme == "dark")
-        {
-            gradient.setColorAt(0, m_backColors[0]);
-            gradient.setColorAt(1, m_backColors[1]);
-        }
-        else
-        {
-            gradient.setColorAt(0, m_backColors[2]);
-            gradient.setColorAt(1, m_backColors[3]);
-        }
-        painter.setBrush(gradient);
-        painter.drawRoundedRect(rect(), 10, 10);
+        // 圆角
+        QPainterPath path;
+        path.addRoundedRect(rect(), width() / 5, width() / 5);
+        painter.setClipPath(path);
+        // 渐变背景
+        QPixmap pixmap;
+        if (theme == "dark") painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_1.svg"));
+        else painter.drawPixmap(this->rect(), QPixmap(":/res/desktop_0.svg"));
     }
     else
     {
