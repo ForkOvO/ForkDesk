@@ -14,8 +14,9 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin) # 可执行文件输出目
 
 # 添加子目录
 add_subdirectory(public)
+add_subdirectory(software)
 add_subdirectory(components)
-add_subdirectory(src)
+add_subdirectory(main)
 
 qt_add_executable(
     ${PROJECT_NAME} # 可执行文件名称
@@ -28,7 +29,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     # QT6
     Qt6::Widgets
     # 自定义
-    src
+    main
 ) # 链接库
 
 # 设置目标属性
