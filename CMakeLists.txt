@@ -12,13 +12,14 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets) # 查找库
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin) # 可执行文件输出目录
 
-add_subdirectory(src) # 添加子目录
-include_directories(src) # 添加头文件
+# 添加子目录
+add_subdirectory(public)
+add_subdirectory(components)
+add_subdirectory(src)
 
 qt_add_executable(
     ${PROJECT_NAME} # 可执行文件名称
     MANUAL_FINALIZATION # 手动完成
-    main.cpp
     res.qrc
     icon.rc # 输出图标
 ) # 生成可执行文件
