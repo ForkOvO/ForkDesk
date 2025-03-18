@@ -135,7 +135,7 @@ void Keyboard::xiaoHeInit()
         m_keyMap["Z"]->setStr("z");
         m_keyMap["X"]->setStr("x");
         m_keyMap["C"]->setStr("c");
-        m_keyMap["V"]->setStr("v");
+        m_keyMap["V"]->setStr("zh");
         m_keyMap["B"]->setStr("b");
         m_keyMap["N"]->setStr("n");
         m_keyMap["M"]->setStr("m");
