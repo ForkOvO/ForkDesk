@@ -70,6 +70,18 @@ CentralWidget::CentralWidget(QWidget *parent)
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
 }
 
+void CentralWidget::setCurrShowWidget(QWidget *widget, QString message)
+{
+    if (m_currShowWidget != nullptr) delete m_currShowWidget;
+    m_currShowWidget = widget;
+    m_currShowWidget->setParent(this);
+    QRect rect = m_currShowWidget->geometry();
+    rect.moveCenter(this->rect().center());
+    m_currShowWidget->setGeometry(rect);
+    m_currShowWidget->show();
+    if (message != "") m_dynamicIsland->notification(message);
+}
+
 void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
 {
     STD_DEBUG(CentralWidget.cpp) << "dragEnterEvent";
@@ -117,4 +129,12 @@ void CentralWidget::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     painter.fillPath(path, QBrush(QColor("#40808080")));
     QWidget::paintEvent(event);
+}
+
+void CentralWidget::mousePressEvent(QMouseEvent *event)
+{
+    if (m_currShowWidget != nullptr) delete m_currShowWidget;
+    m_currShowWidget = nullptr;
+    STD_DEBUG(CentralWidget.cpp) << "deleted current show widget";
+    QWidget::mousePressEvent(event);
 }

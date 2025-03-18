@@ -1,5 +1,7 @@
 #include "dockbaritem.h"
 #include "definestd.h"
+#include "keyboardsetting.h"
+#include "centralwidget.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -56,7 +58,7 @@ void DockBarItem::systemConnect()
             STD_DEBUG(DockBarItem.cpp) << "open explorer";
         });
     }
-    if (m_name == "calculator") // 打开计算器
+    else if (m_name == "calculator") // 打开计算器
     {
         connect(this, &DockBarItem::clicked, this, [&]{
             QProcess process;
@@ -64,7 +66,7 @@ void DockBarItem::systemConnect()
             STD_DEBUG(DockBarItem.cpp) << "open calculator";
         });
     }
-    if (m_name == "recycleBin") // 打开回收站
+    else if (m_name == "recycleBin") // 打开回收站
     {
         connect(this, &DockBarItem::clicked, this, [&]{
             QProcess process;
@@ -72,12 +74,20 @@ void DockBarItem::systemConnect()
             STD_DEBUG(DockBarItem.cpp) << "open recycleBin";
         });
     }
-    if (m_name == "cmd") // 打开命令提示符
+    else if (m_name == "cmd") // 打开命令提示符
     {
         connect(this, &DockBarItem::clicked, this, [&]{
             QProcess process;
             process.startDetached("cmd.exe", QStringList() << "/K" << "start");
             STD_DEBUG(DockBarItem.cpp) << "open cmd";
+        });
+    }
+    else if (m_name == "keyboard")
+    {
+        m_setToWidget = parentWidget()->parentWidget();
+        connect(this, &DockBarItem::clicked, this, [&]{
+            CentralWidget* centralWidget = qobject_cast<CentralWidget*>(m_setToWidget);
+            centralWidget->setCurrShowWidget(new KeyboardSetting(), "打开否客键盘设置");
         });
     }
 }

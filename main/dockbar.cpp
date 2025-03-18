@@ -10,7 +10,7 @@ DockBar::DockBar(QWidget *parent)
     setMouseTracking(true); // 启用鼠标跟踪
 
     // 数据初始化
-    QVector<QString> btnlist = {"ten_OvO", "calculator", "cmd", "recycleBin"};
+    QVector<QString> btnlist = {"ten_OvO", "calculator", "cmd", "recycleBin", "keyboard"};
     int width = btnlist.size() * 120 + 20;
     int height = 240;
     m_baseRect = QRect((parent->width() - width) / 2, parent->height() - height, width, height);

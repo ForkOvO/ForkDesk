@@ -22,5 +22,6 @@
         <file>res/game_black.png</file>
         <file>res/desktop_0.svg</file>
         <file>res/desktop_1.svg</file>
+        <file>res/keyboard.svg</file>
     </qresource>
 </RCC>

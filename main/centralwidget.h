@@ -18,12 +18,16 @@ class CentralWidget : public QWidget
 public:
     explicit CentralWidget(QWidget *parent = nullptr);
 
+    void setCurrShowWidget(QWidget* widget, QString message = ""); // 设置当前显示的窗口
+
 protected:
     // 拖拽
     void dragEnterEvent(QDragEnterEvent *event) override;
     void dropEvent(QDropEvent *event) override;
     // 绘制菜单栏背景
     void paintEvent(QPaintEvent *event) override;
+    // 点击空白处关闭当前显示窗口
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     DockBar* m_dockBar = nullptr; // 底部栏
@@ -34,6 +38,7 @@ private:
     ThemeTextLabel* m_timeLabel = nullptr; // 时间
 
     QTimer* m_timer = nullptr; // 定时器
+    QWidget* m_currShowWidget = nullptr; // 当前显示的窗口
 };
 
 #endif // CENTRALWIDGET_H

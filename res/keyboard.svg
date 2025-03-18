@@ -1,0 +1,28 @@
+<svg width="512.000000" height="512.000000" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip14_4">
+			<rect id="画板 1" width="512.000000" height="512.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+		<linearGradient x1="0.000031" y1="-0.000092" x2="511.999969" y2="512.000000" id="paint_linear_14_4_0" gradientUnits="userSpaceOnUse">
+			<stop offset="0.005208" stop-color="#5DE4B4"/>
+			<stop offset="0.997396" stop-color="#E5B969"/>
+		</linearGradient>
+		<linearGradient x1="119.000153" y1="-34.000069" x2="394.000000" y2="544.999939" id="paint_linear_16_5_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#0000A2"/>
+			<stop offset="1.000000" stop-color="#842490"/>
+		</linearGradient>
+		<linearGradient x1="221.000000" y1="213.000000" x2="394.000000" y2="430.000031" id="paint_linear_16_6_0" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#3AFF00"/>
+			<stop offset="0.983178" stop-color="#FFF200"/>
+		</linearGradient>
+	</defs>
+	<rect width="512.000000" height="512.000000" fill="#EFEFEF"/>
+	<rect id="画板 1" width="512.000000" height="512.000000" fill="url(#paint_linear_14_4_0)" fill-opacity="1.000000"/>
+	<g clip-path="url(#clip14_4)">
+		<path id="K" d="M214.6 430L155.42 430L155.42 133.61L214.6 133.61L214.6 262.42L215.77 262.42L313.82 133.61L378.96 133.61L288.62 250.41L394.97 430L330.23 430L253.37 296.79L214.6 346.79L214.6 430Z" fill="url(#paint_linear_16_5_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+		<path id="ey" d="M298.71 379.78C290.43 385.49 279.81 389.08 269.45 389.08C245.9 389.08 227.59 372.75 227.59 344.99C227.59 317.85 246.81 300.9 266.74 300.9C289.84 300.9 301.85 317.85 301.85 340.96C301.85 345.14 301.38 349.2 300.79 351.14L249.05 351.14C250.84 364.95 259.85 372.13 272.3 372.13C279.19 372.13 285.19 370.04 291.2 366.3L298.71 379.78ZM361.85 389.56C354.49 409.33 345.48 420.76 326.73 420.76C321.79 420.76 318.5 420.14 315.2 419.11L319.23 402.16C320.73 402.6 323.15 403.18 325.09 403.18C333.66 403.18 338.45 397.8 340.83 390.44L342.34 385.49L309.63 302.99L331.86 302.99L345.19 341.99C347.76 349.5 349.84 357.59 352.26 365.68L352.99 365.68C354.93 357.88 357.06 349.79 359 341.99L370.53 302.99L391.7 302.99L361.85 389.56ZM267.03 318C258.2 318 250.4 324.3 248.75 336.46L282.96 336.46C282.96 325.18 277.83 318 267.03 318Z" fill="url(#paint_linear_16_6_0)" fill-opacity="1.000000" fill-rule="evenodd"/>
+	</g>
+</svg>
