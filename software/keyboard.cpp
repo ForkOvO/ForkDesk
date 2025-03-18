@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "keyboarditem.h"
 #include "keyboardlistener.h"
+#include "publiccache.h"
 
 #include <QGuiApplication>
 #include <QScreen>
@@ -99,10 +100,13 @@ Keyboard::Keyboard(KeyboardType type, QWidget *parent)
     m_listener = KeyboardListener::instance();
     connect(m_listener, &KeyboardListener::keyPress, this, &Keyboard::onKeyPress);
     connect(m_listener, &KeyboardListener::keyRelease, this, &Keyboard::onKeyRelease);
+
+    PublicCache::instance()->addWidget(this);
 }
 
 Keyboard::~Keyboard()
 {
+    PublicCache::instance()->removeWidget(this);
 }
 
 void Keyboard::xiaoHeInit()

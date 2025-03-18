@@ -1,4 +1,5 @@
 #include "keyboarditem.h"
+#include "publiccache.h"
 
 #include <QPainter>
 
@@ -28,7 +29,9 @@ void KeyboardItem::setPressed(bool pressed)
 void KeyboardItem::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.setPen(QPen(Qt::black));
+    QString theme = PublicCache::instance()->get("theme").toString();
+    if (theme == "dark") painter.setPen(QPen(Qt::white));
+    else painter.setPen(QPen(Qt::black));
     if (m_pressed) painter.setBrush(QColor("#808080"));
     else painter.setBrush(QColor("#20808080"));
     painter.drawRoundedRect(rect(), 5, 5);
