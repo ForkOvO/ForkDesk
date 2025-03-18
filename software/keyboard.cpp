@@ -5,8 +5,9 @@
 #include <QGuiApplication>
 #include <QScreen>
 
-Keyboard::Keyboard(QWidget *parent)
+Keyboard::Keyboard(KeyboardType type, QWidget *parent)
     : QWidget(parent)
+    , m_type(type)
 {
     setAttribute(Qt::WA_TransparentForMouseEvents);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool); // 无边框 | 置顶 | 无任务栏
@@ -85,6 +86,15 @@ Keyboard::Keyboard(QWidget *parent)
         }
     }
 
+    switch (type)
+    {
+    case KeyboardType::XiaoHe:
+        xiaoHeInit();
+        break;
+    default:
+        break;
+    }
+
     // 键盘监听器
     m_listener = KeyboardListener::instance();
     connect(m_listener, &KeyboardListener::keyPress, this, &Keyboard::onKeyPress);
@@ -95,9 +105,82 @@ Keyboard::~Keyboard()
 {
 }
 
+void Keyboard::xiaoHeInit()
+{
+    if (m_xiaoHeCount== 0) // 声母
+    {
+        m_keyMap["Q"]->setStr("q");
+        m_keyMap["W"]->setStr("w");
+        m_keyMap["E"]->setStr("e");
+        m_keyMap["R"]->setStr("r");
+        m_keyMap["T"]->setStr("t");
+        m_keyMap["Y"]->setStr("y");
+        m_keyMap["U"]->setStr("sh");
+        m_keyMap["I"]->setStr("ch");
+        m_keyMap["O"]->setStr("o");
+        m_keyMap["P"]->setStr("p");
+        m_keyMap["A"]->setStr("a");
+        m_keyMap["S"]->setStr("s");
+        m_keyMap["D"]->setStr("d");
+        m_keyMap["F"]->setStr("f");
+        m_keyMap["G"]->setStr("g");
+        m_keyMap["H"]->setStr("h");
+        m_keyMap["J"]->setStr("j");
+        m_keyMap["K"]->setStr("k");
+        m_keyMap["L"]->setStr("l");
+        m_keyMap["Z"]->setStr("z");
+        m_keyMap["X"]->setStr("x");
+        m_keyMap["C"]->setStr("c");
+        m_keyMap["V"]->setStr("v");
+        m_keyMap["B"]->setStr("b");
+        m_keyMap["N"]->setStr("n");
+        m_keyMap["M"]->setStr("m");
+    }
+    else // 韵母
+    {
+        m_keyMap["Q"]->setStr("iu");
+        m_keyMap["W"]->setStr("ei");
+        m_keyMap["E"]->setStr("e");
+        m_keyMap["R"]->setStr("uan");
+        m_keyMap["T"]->setStr("ue\nve");
+        m_keyMap["Y"]->setStr("un");
+        m_keyMap["U"]->setStr("u");
+        m_keyMap["I"]->setStr("i");
+        m_keyMap["O"]->setStr("o\nuo");
+        m_keyMap["P"]->setStr("ie");
+        m_keyMap["A"]->setStr("a");
+        m_keyMap["S"]->setStr("iong\nong");
+        m_keyMap["D"]->setStr("ai");
+        m_keyMap["F"]->setStr("en");
+        m_keyMap["G"]->setStr("eng");
+        m_keyMap["H"]->setStr("ang");
+        m_keyMap["J"]->setStr("an");
+        m_keyMap["K"]->setStr("ing\nuai");
+        m_keyMap["L"]->setStr("iang\nuang");
+        m_keyMap["Z"]->setStr("ou");
+        m_keyMap["X"]->setStr("ia\nua");
+        m_keyMap["C"]->setStr("ao");
+        m_keyMap["V"]->setStr("ui\nv");
+        m_keyMap["B"]->setStr("in");
+        m_keyMap["N"]->setStr("iao");
+        m_keyMap["M"]->setStr("ian");
+    }
+}
+
 void Keyboard::onKeyPress(QString key)
 {
     if (m_keyMap.contains(key)) m_keyMap[key]->setPressed(true);
+    switch (m_type)
+    {
+    case KeyboardType::XiaoHe:
+    {
+        m_xiaoHeCount = (m_xiaoHeCount + 1) % 2;
+        if (key == "Space") m_xiaoHeCount = 0;
+        xiaoHeInit();
+    }
+    default:
+        break;
+    }
 }
 
 void Keyboard::onKeyRelease(QString key)

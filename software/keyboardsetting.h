@@ -6,6 +6,7 @@
 #include <QWidget>
 
 class QPushButton;
+class Keyboard;
 
 class KeyboardSetting : public QWidget
 {
@@ -15,7 +16,10 @@ public:
     ~KeyboardSetting();
 
 private:
-    QPushButton* m_switchButton = nullptr; // 开关按钮
+    QPushButton* m_defaultButton = nullptr; // 默认键盘按钮
+    QPushButton* m_xiaoheButton = nullptr; // 小鹤双拼按钮
+
+    Keyboard* m_currKeyboard = nullptr; // 键盘
 };
 
 #endif // KEYBOARDSETTING_H

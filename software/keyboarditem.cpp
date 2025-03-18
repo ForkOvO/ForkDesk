@@ -13,6 +13,12 @@ KeyboardItem::~KeyboardItem()
 {
 }
 
+void KeyboardItem::setStr(QString str)
+{
+    m_str = str;
+    update();
+}
+
 void KeyboardItem::setPressed(bool pressed)
 {
     m_pressed = pressed;

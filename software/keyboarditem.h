@@ -12,6 +12,7 @@ public:
     explicit KeyboardItem(QString str, QWidget *parent = nullptr);
     ~KeyboardItem();
 
+    void setStr(QString str); // 设置文本
     void setPressed(bool pressed); // 设置按下状态
 
 protected:
