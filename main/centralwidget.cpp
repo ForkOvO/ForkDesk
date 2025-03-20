@@ -4,6 +4,7 @@
 #include "dockbar.h"
 #include "dynamicisland.h"
 #include "themetextlabel.h"
+#include "publicfunction.h"
 
 #include <QPushButton>
 #include <QFile>
@@ -79,7 +80,7 @@ void CentralWidget::setCurrShowWidget(QWidget *widget, QString message)
     rect.moveCenter(this->rect().center());
     m_currShowWidget->setGeometry(rect);
     m_currShowWidget->show();
-    if (message != "") m_dynamicIsland->notification(message);
+    if (message != "") PublicFunction::instance()->DynamicIslandNotification(message);
 }
 
 void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -93,7 +94,7 @@ void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
             if (!url.isLocalFile() || !QFileInfo(url.toLocalFile()).isExecutable())
             {
                 STD_DEBUG(MainWindow.cpp) << "one of the files is not executable";
-                m_dynamicIsland->notification("其中一个文件不是可执行文件");
+                PublicFunction::instance()->DynamicIslandNotification("其中一个文件不是可执行文件");
                 return;
             }
         }
@@ -108,7 +109,7 @@ void CentralWidget::dropEvent(QDropEvent *event)
     for (const QUrl &url : event->mimeData()->urls())
     {
         m_dockBar->addItem(url.toLocalFile());
-        m_dynamicIsland->notification("成功拖入可执行文件");
+        PublicFunction::instance()->DynamicIslandNotification("成功拖入可执行文件");
     }
 }
 

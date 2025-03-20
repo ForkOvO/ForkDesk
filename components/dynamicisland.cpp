@@ -1,4 +1,5 @@
 #include "dynamicisland.h"
+#include "publicfunction.h"
 
 #include <QPainter>
 #include <QPropertyAnimation>
@@ -20,6 +21,9 @@ DynamicIsland::DynamicIsland(QWidget *parent)
     m_foldTimer = new QTimer(this);
     connect(m_foldTimer, &QTimer::timeout, this, [&]{ setFold(true); });
     m_foldTimer->start(4000); // 开始4秒后自动折叠
+
+    // 动态岛通知
+    PublicFunction::instance()->setDynamicIslandNotification([this](QString content){ notification(content); });
 }
 
 DynamicIsland::~DynamicIsland()

@@ -15,8 +15,6 @@ public:
     DynamicIsland(QWidget *parent = nullptr);
     ~DynamicIsland();
 
-    void notification(QString content);
-
 protected:
     // 折叠
     void enterEvent(QEnterEvent *event) override; // 展开
@@ -25,6 +23,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
+    void notification(QString content);
     void setFold(bool toFold = true); // 设置折叠状态
 
 private:
