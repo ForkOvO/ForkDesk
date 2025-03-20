@@ -69,18 +69,40 @@ CentralWidget::CentralWidget(QWidget *parent)
     mainLayout->addLayout(btnLayout);
     mainLayout->addStretch();
     mainLayout->setContentsMargins(0, 0, 0, 0); // 设置边距
+
+    PublicFunction::instance()->setCentralWidgetAddSoftware([this](QString name, QWidget *widget){ addSoftware(name, widget); }); // 设置添加软件的函数
+    PublicFunction::instance()->setCentralWidgetRemoveSoftware([this](QString name){ removeSoftware(name); }); // 设置移除软件的函数
 }
 
-void CentralWidget::setCurrShowWidget(QWidget *widget, QString message)
+void CentralWidget::addSoftware(QString name, QWidget *widget)
 {
-    if (m_currShowWidget != nullptr) delete m_currShowWidget;
-    m_currShowWidget = widget;
-    m_currShowWidget->setParent(this);
-    QRect rect = m_currShowWidget->geometry();
+    for (auto w : m_softwareMap.values()) w->hide(); // 隐藏所有软件窗口
+
+    if (m_softwareMap.contains(name)) // 如果已经存在则显示
+    {
+        m_softwareMap[name]->show();
+        delete widget;
+        return;
+    }
+
+    // 居中显示
+    widget->setParent(this);
+    QRect rect = widget->geometry();
     rect.moveCenter(this->rect().center());
-    m_currShowWidget->setGeometry(rect);
-    m_currShowWidget->show();
-    if (message != "") PublicFunction::instance()->DynamicIslandNotification(message);
+    widget->setGeometry(rect);
+    widget->show();
+
+    m_softwareMap.insert(name, widget);
+    PublicFunction::instance()->DynamicIslandNotification(name);
+}
+
+void CentralWidget::removeSoftware(QString name)
+{
+    if (m_softwareMap.contains(name))
+    {
+        delete m_softwareMap[name];
+        m_softwareMap.remove(name);
+    }
 }
 
 void CentralWidget::dragEnterEvent(QDragEnterEvent *event)
@@ -134,8 +156,6 @@ void CentralWidget::paintEvent(QPaintEvent *event)
 
 void CentralWidget::mousePressEvent(QMouseEvent *event)
 {
-    if (m_currShowWidget != nullptr) delete m_currShowWidget;
-    m_currShowWidget = nullptr;
-    STD_DEBUG(CentralWidget.cpp) << "deleted current show widget";
+    for (auto w : m_softwareMap.values()) w->hide(); // 隐藏所有软件窗口
     QWidget::mousePressEvent(event);
 }

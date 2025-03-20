@@ -2,6 +2,7 @@
 #include "definestd.h"
 #include "keyboardsetting.h"
 #include "centralwidget.h"
+#include "publicfunction.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -84,10 +85,8 @@ void DockBarItem::systemConnect()
     }
     else if (m_name == "keyboard")
     {
-        m_setToWidget = parentWidget()->parentWidget();
         connect(this, &DockBarItem::clicked, this, [&]{
-            CentralWidget* centralWidget = qobject_cast<CentralWidget*>(m_setToWidget);
-            centralWidget->setCurrShowWidget(new KeyboardSetting(), "打开否客键盘设置");
+            PublicFunction::instance()->CentralWidgetAddSoftware("键盘设置", new KeyboardSetting);
         });
     }
 }

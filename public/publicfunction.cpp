@@ -28,3 +28,23 @@ void PublicFunction::setDynamicIslandNotification(std::function<void(QString)> f
 {
     m_dynamicIslandNotification = func;
 }
+
+void PublicFunction::CentralWidgetAddSoftware(QString name, QWidget *widget)
+{
+    if (m_centralWidgetAddSoftware) m_centralWidgetAddSoftware(name, widget);
+}
+
+void PublicFunction::setCentralWidgetAddSoftware(std::function<void(QString, QWidget *)> func)
+{
+    m_centralWidgetAddSoftware = func;
+}
+
+void PublicFunction::CentralWidgetRemoveSoftware(QString name)
+{
+    if (m_centralWidgetRemoveSoftware) m_centralWidgetRemoveSoftware(name);
+}
+
+void PublicFunction::setCentralWidgetRemoveSoftware(std::function<void(QString)> func)
+{
+    m_centralWidgetRemoveSoftware = func;
+}

@@ -18,7 +18,9 @@ class CentralWidget : public QWidget
 public:
     explicit CentralWidget(QWidget *parent = nullptr);
 
-    void setCurrShowWidget(QWidget* widget, QString message = ""); // 设置当前显示的窗口
+    // void setCurrShowWidget(QWidget* widget, QString message = ""); // 设置当前显示的窗口
+    void addSoftware(QString name, QWidget* widget); // 添加软件
+    void removeSoftware(QString name); // 移除软件
 
 protected:
     // 拖拽
@@ -30,6 +32,8 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
+    QMap<QString, QWidget*> m_softwareMap; // 软件映射
+
     DockBar* m_dockBar = nullptr; // 底部栏
     DynamicIsland* m_dynamicIsland = nullptr; // 否客岛
     ThemeButton* m_themeSwitchBtn = nullptr; // 主题切换
@@ -38,7 +42,6 @@ private:
     ThemeTextLabel* m_timeLabel = nullptr; // 时间
 
     QTimer* m_timer = nullptr; // 定时器
-    QWidget* m_currShowWidget = nullptr; // 当前显示的窗口
 };
 
 #endif // CENTRALWIDGET_H

@@ -21,8 +21,6 @@ private:
 private:
     QString m_name; // 应用名称
     QPixmap m_icon; // 应用图标
-
-    QWidget* m_setToWidget = nullptr; // 放置到窗口
 };
 
 #endif // DOCKBARITEM_H
