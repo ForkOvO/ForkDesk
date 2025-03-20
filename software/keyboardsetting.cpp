@@ -9,7 +9,7 @@ KeyboardSetting::KeyboardSetting(QWidget *parent)
 {
     setFixedSize(500, 300);
     setAttribute(Qt::WA_StyledBackground);
-    setStyleSheet("background-color: #ffffff");
+    setStyleSheet("background-color: #80808080; border-radius: 10px;");
 
     m_defaultButton = new QPushButton("默认键盘", this);
     m_defaultButton->setGeometry(200, 100, 100, 50);
